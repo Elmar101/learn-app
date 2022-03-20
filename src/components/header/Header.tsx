@@ -23,21 +23,22 @@ class Header extends React.Component<Props,State> {
     render() {
         return (
             <header>
-                <nav className="container navbar navbar-expand-lg justify-content-between">
+                <nav className="d-flex container navbar navbar-expand-lg justify-content-between">
                     <XLink className="navbar-brand" to="/">EĞİTİMBUDUR</XLink>
+                    
                     <button className="navbar-toggler" type="button" onClick={this.buttonClicked.bind(this)}>
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="navbar-collapse" style={{ display: this.state.isNavOpen ? "block" : "none" }}>
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <XLink to="/"  className="nav-link">Ana Sayfa</XLink>
+                                <XLink activeClassName="active" to="/"  className="nav-link">Ana Sayfa</XLink>
                             </li>
                             <li className="nav-item">
-                                <XLink to="/hakkimizda"  className="nav-link">Hakkımızda</XLink>
+                                <XLink activeClassName="active" to="/hakkimizda"  className="nav-link">Hakkımızda</XLink>
                             </li>
                             <li className="nav-item">
-                                <XLink to="/iletisim"  className="nav-link">İletişim</XLink>
+                                <XLink activeClassName="active" to="/iletisim"  className="nav-link">İletişim</XLink>
                             </li>
                         </ul>
                     </div>

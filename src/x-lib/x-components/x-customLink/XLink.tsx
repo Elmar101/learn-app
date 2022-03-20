@@ -7,7 +7,7 @@ export const  XLink: React.FC<any> = ({ children, to, ...props }: LinkProps) => 
   let match = useMatch({ path: resolved.pathname, end: true });
 
   return (
-    <div>
+ 
       <Link
         style={{ textDecoration: match ? "underline" : "none" }}
         to={to}
@@ -15,7 +15,7 @@ export const  XLink: React.FC<any> = ({ children, to, ...props }: LinkProps) => 
       >
         {children}
       </Link>
-    </div>
+   
   );
 }
 
