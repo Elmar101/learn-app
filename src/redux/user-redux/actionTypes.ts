@@ -1,0 +1,1 @@
+export const USER_INIT: string  = "USER_INIT";

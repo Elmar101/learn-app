@@ -32,13 +32,13 @@ class Header extends React.Component<Props,State> {
                     <div className="navbar-collapse" style={{ display: this.state.isNavOpen ? "block" : "none" }}>
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <XLink activeClassName="active" to="/"  className="nav-link">Ana Sayfa</XLink>
+                                <XLink activeclassname="active" to="/"  className="nav-link">Ana Sayfa</XLink>
                             </li>
                             <li className="nav-item">
-                                <XLink activeClassName="active" to="/hakkimizda"  className="nav-link">Hakkımızda</XLink>
+                                <XLink activeclassname="active" to="/hakkimizda"  className="nav-link">Hakkımızda</XLink>
                             </li>
                             <li className="nav-item">
-                                <XLink activeClassName="active" to="/iletisim"  className="nav-link">İletişim</XLink>
+                                <XLink activeclassname="active" to="/iletisim"  className="nav-link">İletişim</XLink>
                             </li>
                         </ul>
                     </div>
