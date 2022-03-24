@@ -1,19 +1,15 @@
-import React from "react";
 import Header from "../components/header/Header";
-import {
-  Routes,
-  Route,
-  Outlet,
-} from "react-router-dom";
+import MyRouters from "../components/router/MyRouters";
 import HomeView from "../pages/home-pages/HomeView";
 
 
 function App() {
   return (
-    <>
+    <MyRouters />
+   /*  <>
     <Header/>
     <HomeView />
-    </>
+    </> */
     
    /*  <Routes>
     <Route path="/" element={<Header />}>

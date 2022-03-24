@@ -1,25 +1,33 @@
-import React from "react";
+import React  from "react";
 import {connect} from "react-redux";
-import { userInitAction } from "../../../redux/user-redux/actionCreator";
+import { userInitAction, userLoginSuccessAction } from "../../../redux/user-redux/actionCreator";
 import { IUser } from '../../../models/user';
+import { loginApiCall } from "../../../api/apiCall";
+import { ROUTE_LOGIN } from "../../../config/Constants";
+import { setDataToStorage } from "../../../shared/storage/Storage";
+import { Navigate } from "react-router";
+//import { useNavigate } from "react-router";
 import { Dispatch } from "redux";
-
 interface Props {
   onViewChange: (n: number) => void;
-  userInit: (user: IUser) => void
+  userInit?: (user: IUser) => void;
+  userLoginSuccessAction: (user: {email: string , password: string}) => void
 }
 
 interface State {
   email: string;
   password: string;
+  hasError?: boolean;
+  errorMessage?: string;
 }
 class LoginView extends React.Component<Props , State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
+      email: "eve.holt@reqres.in",
+      password: "cityslicka",
+      errorMessage: "",
     };
   }
 
@@ -31,21 +39,39 @@ class LoginView extends React.Component<Props , State> {
   }
   onUserClick() {
     // HTTP Call
-    const user: IUser =  {
-      id: 1,
-      name: "Elmar",
-      email: "elmar@mail.ru",
-      password: "12345"
+    const data = {email: this.state.email , password: this.state.password}
+    try{
+      this.props.userLoginSuccessAction(data);
+      <Navigate to = '/' />
+      this.setState( (state)=>({
+        ...state,
+        email: "",
+        password: ""
+      })) 
     }
-
-    this.props.userInit(user)
+    catch(err){
+      this.setState( (state)=>({
+        ...state,
+        errorMessage: err as string
+      }))
+    }
+    userLoginSuccessAction(data)
+    //this.props.userInit(user)
   }
-
+  public renderErrors(): JSX.Element {
+    return (
+      <div className="alert alert-danger" role="alert" style={{ width: "516px", margin: "20px auto 0 auto" }}>
+        {this.state.errorMessage}
+      </div>
+    );
+  }
   render() {
     const onViewChange = this.props.onViewChange;
-
+    const Error = this.renderErrors.bind(this);
       return (
         <div>
+          <div> email: "eve.holt@reqres.in"<span style={{paddingRight: "20px"}}></span> password: "cityslicka" </div>
+        {this.state.errorMessage && <Error />}
           <form className="form-inline">
             <div className="form-group">
               <input
@@ -108,10 +134,10 @@ class LoginView extends React.Component<Props , State> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    userInit: (user: IUser) => {
-      dispatch( userInitAction(user) )
+    userLoginSuccessAction: async (user: {email: string, password: string}) => {
+      await dispatch( userLoginSuccessAction({email: user.email, password: user.password}) )
     }
   }
 }
