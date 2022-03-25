@@ -11,7 +11,6 @@ const HomeLayout = () => {
   if(!token){
      return <Navigate replace to = '/auth'/> ;  
   }
-  
   return (
     <>
         <Header />

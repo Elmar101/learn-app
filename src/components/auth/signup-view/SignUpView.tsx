@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { registerApiCall } from "../../../api/apiCall";
 import { ROUTE_REGISTER } from "../../../config/Constants";
+import XTextField from "../../../x-lib/x-components/x-form-controls/XTextField";
 interface Props {
   onViewChange?: (n: number) => void;
 }
@@ -11,33 +12,37 @@ interface State {
   hasError?: boolean;
   errorMessage?: string;
 }
-
-class SignUpView extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      email: "",
-      password: "",
-      errorMessage: "",
-    };
-  }
-
-  public handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState((state: Readonly<State>) => ({
+const initialState: State = {
+  email: "",
+  password: "",
+  errorMessage: "",
+};
+const SignUpView: React.FC<Props> = (props):JSX.Element => {
+  const { onViewChange } = props;
+  const [state, setState] = useState<State>(initialState);
+  //const [email, setEmail] = useState<string>("");
+  const handleEmailChange = useCallback((val: string) => {
+    setState((state: Readonly<State>) => ({
       ...state,
-      [e.target.name]: e.target.value,
+      email: val,
     }));
-  };
-  public onSubmitSignUp(e: any) {
+  },[state.email]);
+
+  const handlePasswordChange = useCallback((val: string) => {
+    setState((state: Readonly<State>) => ({
+      ...state,
+      password: val,
+    }));
+  },[state.password]);
+  const onSubmitSignUp = (e: any) => {
     e.preventDefault();
     const data = {
-      email: this.state.email,
-      password: this.state.password,
+      email: state.email,
+      password: state.password,
     };
 
     if (!data.email || !data.password) {
-      this.setState((state) => ({
+      setState((state) => ({
         ...state,
         errorMessage: "required email and password",
       }));
@@ -47,7 +52,7 @@ class SignUpView extends React.Component<Props, State> {
     registerApiCall(ROUTE_REGISTER, data)
       .then((res) => {
         console.log(res)
-        this.setState(state => ({
+        setState(state => ({
           ...state,
           email: "",
           password: "",
@@ -56,7 +61,7 @@ class SignUpView extends React.Component<Props, State> {
       })
       .catch((err) => {
         console.log(err)
-        this.setState(state => ({
+        setState(state => ({
           ...state,
           email: "",
           password: "",
@@ -66,46 +71,41 @@ class SignUpView extends React.Component<Props, State> {
   }
 
 
-  public renderErrors(): JSX.Element {
+  const Error = (): JSX.Element => {
     return (
       <div className="alert alert-danger" role="alert" style={{ width: "516px", margin: "20px auto 0 auto" }}>
-        {this.state.errorMessage}
+        {state.errorMessage}
       </div>
     );
   }
-  render() {
-    const { onViewChange } = this.props;
-    const Error = this.renderErrors.bind(this);
+
     return (
       <div>
         <div> email: "eve.holt@reqres.in"<span style={{paddingRight: "20px"}}></span> password: "pistol" </div>
-        {this.state.errorMessage && <Error />}
+        {state.errorMessage && <Error />}
 
         <form className="form-inline">
           <div className="form-group">
-            <input
-              type="text"
-              name="email"
-              className="form-control"
+            <XTextField
+              label="email"
               placeholder="E-Posta"
-              value={this.state.email}
-              onChange={this.handleChange.bind(this)}
+              value={state.email}
+              onChange={handleEmailChange}
             />
           </div>
           <div className="form-group my-sm-3">
-            <input
+          <XTextField
               type="password"
-              name="password"
-              className="form-control"
+              label="password"
               placeholder="Şifre"
-              value={this.state.password}
-              onChange={this.handleChange.bind(this)}
+              value={state.password}
+              onChange={handlePasswordChange}
             />
           </div>
           <button
             type="submit"
             className="btn btn-primary"
-            onClick={this.onSubmitSignUp.bind(this)}
+            onClick={onSubmitSignUp}
           >
             Kayıt Ol!
           </button>
@@ -131,6 +131,5 @@ class SignUpView extends React.Component<Props, State> {
       </div>
     );
   }
-}
 
 export default SignUpView;
