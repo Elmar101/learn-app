@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { userLoginSuccessAction } from "../../../redux/user-redux/actionCreator";
 import { IUser } from "../../../models/user";
 import { Navigate } from "react-router";
@@ -24,6 +24,7 @@ const initialValue = {
 const LoginView: React.FC<Props> = (props) => {
   const { onViewChange } = props;
   const [state, setState] = useState(initialValue);
+  const mountedRef = useRef(true);
   const dispatch = useDispatch();
   const handleEmailChange = useCallback(
     (val: string) => {
@@ -45,7 +46,7 @@ const LoginView: React.FC<Props> = (props) => {
     [state.password]
   );
 
-  const  onUserClick = async () =>  {
+  const  onUserClick = useCallback( async () =>  {
     // HTTP Call
     const data = {email: state.email , password: state.password}
     try{
@@ -63,7 +64,15 @@ const LoginView: React.FC<Props> = (props) => {
         errorMessage: err as string
       }))
     }
-  } 
+  },[mountedRef] )
+  
+  useEffect(()=>{
+    onUserClick();
+    return ()=> {
+      mountedRef.current = false;
+    };
+  },[onUserClick]); 
+  
   const Error = (): JSX.Element => {
     return (
       <div
@@ -102,7 +111,7 @@ const LoginView: React.FC<Props> = (props) => {
           />
         </div>
         <button type="button" className="btn btn-primary" onClick = {onUserClick} >
-          Giriş Yap
+          Giriş Et
         </button>
         <a
           href="#"
@@ -116,8 +125,8 @@ const LoginView: React.FC<Props> = (props) => {
       </form>
 
       <p>
-        Henüz üye olmadınız mı? <br />
-        Ücretsiz kayıt olmak için{" "}
+        Hələdə üye deyilsiniz? <br />
+        pulsuz registir olmak üçün
         <b>
           <u>
             <a
@@ -128,7 +137,7 @@ const LoginView: React.FC<Props> = (props) => {
                 onViewChange && onViewChange(2);
               }}
             >
-              tıklayınız.
+              kilik edin.
             </a>
           </u>
         </b>

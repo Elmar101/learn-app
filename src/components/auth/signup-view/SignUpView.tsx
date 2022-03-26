@@ -107,12 +107,12 @@ const SignUpView: React.FC<Props> = (props):JSX.Element => {
             className="btn btn-primary"
             onClick={onSubmitSignUp}
           >
-            Kayıt Ol!
+           Register Ol!
           </button>
         </form>
 
         <p>
-          Zaten üye misiniz? <br />O zaman giriş yapmak için{" "}
+          Zaten Hesabiniz var? <br />O zaman giriş etmek üçün
           <b>
             <u>
               <a
@@ -123,7 +123,7 @@ const SignUpView: React.FC<Props> = (props):JSX.Element => {
                   onViewChange && onViewChange(1);
                 }}
               >
-                tıklayınız.
+                Kilik edin
               </a>
             </u>
           </b>

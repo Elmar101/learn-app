@@ -4,17 +4,17 @@ import HomeView from "../pages/home-pages/HomeView";
 import TestUseUpdateEffectHooks from "../test/useUpdateEffectHooks/TestUseUpdateEffectHooks";
 
 //useUpdateEffect custom Hooks
-function App() {
+/* function App() {
   return (
     <TestUseUpdateEffectHooks/>
   );
-}
+} */
 
 //Routing
-/* function App() {
+function App() {
   return (
      <MyRouters /> 
   );
-} */
+}
 
 export default App;

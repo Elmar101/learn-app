@@ -4,7 +4,7 @@ import AuthView from '../../components/auth/AuthView';
 export const HomeView = () => (
   <div className="home-container">
     <div className="container">
-      <h1>Öğretmenler için <br />başlangıç noktası!</h1>
+      <h1>Muellimler üÇün <br /></h1>
       <AuthView />
     </div>
   </div>

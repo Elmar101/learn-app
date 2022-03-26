@@ -6,6 +6,8 @@ type LoggedGuard =  () => (boolean | React.Dispatch<React.SetStateAction<boolean
 
 const useLoggedGuard: LoggedGuard = () => {
   const [isLogged, setLogged] = useState<boolean>(false);
+  const ref = React.useRef(isLogged);
+  
   const token = useMemo(()=> {useSelector((state: RootState )=> state.user?.token )},[]);
   console.log("TOKEN",token, isLogged)
   /* useEffect(()=>{
