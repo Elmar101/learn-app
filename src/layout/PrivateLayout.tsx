@@ -5,12 +5,9 @@ import Header from '../components/header/Header'
 import useLoggedGuard from '../guards/isLogged.hooks';
 import { RootState } from '../redux/store';
 
-const HomeLayout = () => {
-  //const [ isLogged , setLogged ] = useLoggedGuard();
+const PrivateLayout = () => {
   const token = useSelector((state: RootState)=> state.user?.token);
-  if(!token){
-     return <Navigate replace to = '/auth'/> ;  
-  }
+  if(!token){ return <Navigate replace to = '/login'/> }
   return (
     <>
         <Header />
@@ -19,4 +16,4 @@ const HomeLayout = () => {
   )
 }
 
-export default HomeLayout
+export default PrivateLayout;

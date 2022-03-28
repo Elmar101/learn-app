@@ -5,7 +5,6 @@ import reportWebVitals from "./reportWebVitals";
 import "./bootstrap-overwride.scss";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./index.scss";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 ReactDOM.render(

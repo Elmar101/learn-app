@@ -15,7 +15,7 @@ const AuthView: React.FC<Props> = () => {
                     ? <LoginView onViewChange={changeView} />
                     : state === 2 
                     ? <SignUpView onViewChange={changeView} />
-                    : <PasswordReset onViewChange={changeView} />
+                    : <PasswordReset />
 
     
 }

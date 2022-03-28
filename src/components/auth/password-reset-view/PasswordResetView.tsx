@@ -1,8 +1,5 @@
 import React from 'react';
-interface Props {
-    onViewChange: (n: number) => void;
-  }
-const PasswordReset:React.FC<Props> = ({onViewChange})=> (
+const PasswordResetView = ()=> (
     <div>
         <form className="form-inline">
             <div className="form-group">
@@ -14,10 +11,9 @@ const PasswordReset:React.FC<Props> = ({onViewChange})=> (
         <p>
            Login Olmaq Üçün <b><u><a style={{fontSize : "18px"}} href="#" onClick={e => {
                 e.preventDefault();
-                onViewChange(1);
             }}>Kilik ediniz.</a></u></b>
         </p>
     </div>
 )
 
-export default PasswordReset;
+export default PasswordResetView;

@@ -4,6 +4,8 @@ import { IUser } from "../../../models/user";
 import { Navigate } from "react-router";
 import XTextField from "../../../x-lib/x-components/x-form-controls/XTextField";
 import { useDispatch } from "react-redux";
+import { useApiProgress } from "../../../hooks/useApiProgress";
+import { ROUTE_LOGIN } from "../../../config/Constants";
 interface Props {
   onViewChange?: (n: number) => void;
   userInit?: (user: IUser) => void;
@@ -20,12 +22,18 @@ const initialValue = {
   email: "eve.holt@reqres.in",
   password: "cityslicka",
   errorMessage: "",
+  hasError: false
 };
 const LoginView: React.FC<Props> = (props) => {
   const { onViewChange } = props;
-  const [state, setState] = useState(initialValue);
-  const mountedRef = useRef(true);
+  const [state, setState] = useState<State>(initialValue);
   const dispatch = useDispatch();
+  const [pendingApiCall] = useApiProgress({
+    apiMethod: "Post",
+    apiPath: ROUTE_LOGIN,
+    strickPath: true
+  });
+ 
   const handleEmailChange = useCallback(
     (val: string) => {
       setState((state) => ({
@@ -51,27 +59,12 @@ const LoginView: React.FC<Props> = (props) => {
     const data = {email: state.email , password: state.password}
     try{
       await dispatch(userLoginSuccessAction(data));
-      <Navigate to = '/' />
-      setState( (state)=>({
-        ...state,
-        email: "",
-        password: ""
-      })) 
+      <Navigate to = '/pages' />
     }
     catch(err){
-      setState( (state)=>({
-        ...state,
-        errorMessage: err as string
-      }))
+      console.log(err)
     }
-  },[mountedRef] )
-  
-  useEffect(()=>{
-    onUserClick();
-    return ()=> {
-      mountedRef.current = false;
-    };
-  },[onUserClick]); 
+  },[] )
   
   const Error = (): JSX.Element => {
     return (
@@ -87,10 +80,6 @@ const LoginView: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <div>
-        email: "eve.holt@reqres.in"
-        <span style={{ paddingRight: "20px" }}></span> password: "cityslicka"{" "}
-      </div>
       {state.errorMessage && <Error />}
       <form className="form-inline">
         <div className="form-group">
@@ -113,7 +102,7 @@ const LoginView: React.FC<Props> = (props) => {
         <button type="button" className="btn btn-primary" onClick = {onUserClick} >
           Giriş Et
         </button>
-        <a
+        {state.hasError && <a
           href="#"
           onClick={(e) => {
             e.preventDefault();
@@ -121,7 +110,7 @@ const LoginView: React.FC<Props> = (props) => {
           }}
         >
           Şifremi Unuttum!
-        </a>
+        </a>}
       </form>
 
       <p>
@@ -147,4 +136,25 @@ const LoginView: React.FC<Props> = (props) => {
 };
 
 export default LoginView;
+//Eger Login Olduqdan sonra componenrde nese ish etmek isdesen asenkiron ish getdiyine gore componentden ayrilanda
+//clearup etmelisen
+ //const mountedRef = useRef(true);
+/*  const  onUserClick = useCallback( async () =>  {
+  // HTTP Call
+  const data = {email: state.email , password: state.password}
+  try{
+    await dispatch(userLoginSuccessAction(data));
+    <Navigate to = '/pages' />
+  }
+  catch(err){
+    console.log(err)
+  }
+},[mountedRef] ) */
 
+  /* useEffect(()=>{
+    onUserClick();
+    return ()=> {
+      mountedRef.current = false;
+    };
+  },[onUserClick]); 
+   */
