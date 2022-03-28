@@ -11,7 +11,7 @@ interface Props{
   refObj?:React.MutableRefObject< {name: string; sname: string }> ;
   refCurrently?: {name: string,sname: string};
 }
-const Child= (props: Props , ref:  React.ForwardedRef<HTMLInputElement | null>) => {
+const Child= (props: Props , ref: React.ForwardedRef<HTMLInputElement | null>) => {
   const { 
     number, 
     dataObj, 

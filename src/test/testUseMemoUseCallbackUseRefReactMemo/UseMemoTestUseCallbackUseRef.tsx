@@ -52,8 +52,8 @@ export default function UseMemoUseCallbackUseRefTest() {
   }
   
   const useMomeRefObjCurrently = useMemo (()=> { return refObj.current },[])
-  const nameRef = useRef<HTMLInputElement | null>(null);
-  const passRef = useRef<HTMLInputElement | null>(null);
+  const nameRef:React.LegacyRef<HTMLInputElement> = useRef<HTMLInputElement | null>(null);
+  const passRef: React.MutableRefObject<HTMLInputElement | null> = useRef<HTMLInputElement | null>(null);
   const onApiRequest = (e: React.SyntheticEvent) => {
     e.preventDefault();
   //API CALL
