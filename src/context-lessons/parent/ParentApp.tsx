@@ -1,23 +1,11 @@
-import React from 'react'
-import { ThemeProvider } from '../AppContext'
-import ChildrenOne from '../children/ChildrenOne'
-import ChildrenTwo from '../children/ChildrenTwo'
-
+import { ThemeProvider } from "../ThemeContext";
+import Container from "./container/Container";
 const ParentApp = () => {
   return (
     <ThemeProvider>
-        <br/> <br/> <br/>
-
-        <ChildrenOne/>
-
-        <br/> <br/> <br/>
-        <hr/>
-        <br/> <br/> <br/>
-
-        <ChildrenTwo/>
-        
+      <Container />
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default ParentApp
+export default ParentApp;
