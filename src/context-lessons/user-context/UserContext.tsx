@@ -4,8 +4,8 @@ interface IUserContextProviderProps {
 }
 
 interface IUser {
-    id: number;
-    name: string ;
+    id?: number;
+    name?: string ;
     bio?: string;
 }
 
@@ -15,11 +15,6 @@ interface IValues {
     setUser: React.Dispatch<React.SetStateAction<IUser>>
 }
  
-const initialUserValues: IUser = {
-    id: 0,
-    name: "",
-    bio: ""
-}
 const UserContext: React.Context<IValues | null> = createContext<IValues | null>(null);
 
 export const useUserContext = () => {
@@ -30,7 +25,7 @@ export const useUserContext = () => {
     return state
 }
 const UserContextProvider: React.FC<IUserContextProviderProps>= ({children}) => {
-    const [user, setUser] = useState(initialUserValues);
+    const [user, setUser] = useState({});
     const values: IValues = {user , setUser}
     return (
         <UserContext.Provider value ={values}>

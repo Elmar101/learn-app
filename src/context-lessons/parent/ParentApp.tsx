@@ -1,9 +1,12 @@
 import { ThemeProvider } from "../ThemeContext";
+import UserContextProvider from "../user-context/UserContext";
 import Container from "./container/Container";
 const ParentApp = () => {
   return (
     <ThemeProvider>
-      <Container />
+      <UserContextProvider>
+        <Container />
+      </UserContextProvider>
     </ThemeProvider>
   );
 };

@@ -4,14 +4,32 @@ import { useUserContext } from "../user-context/UserContext";
 
 const Profile = () => {
   const {user , setUser} = useUserContext();
+  const [loading , setLoading] = useState(false);
   useEffect(()=>{},[]);
-  const handleClick = () => {
-    setUser({id: 1, name: "Elmar", bio: "Lorem Ipsum"});
+  const handleClickLogin = () => {
+    setLoading(true);
+    setTimeout(()=>{
+        setUser({id: 1, name: "Elmar", bio: "Lorem Ipsum"});
+        setLoading(false);
+    },2000)
+  }
+  const handleClickLogout = () => {
+    setLoading(true);
+    setTimeout(()=>{
+        setUser({});
+        setLoading(false);
+    },2000)
   }
   return (
     <>
-        <p>{JSON.stringify(user)}</p>
-        <button onClick={handleClick}> Change </button>
+        {!user?.name && <button onClick={handleClickLogin}> {loading ? "loading" : "Login"} </button>}
+        {(user?.name && !loading) && 
+            <div> 
+                <p>{JSON.stringify(user)}</p>
+                <button onClick={handleClickLogout}> Logout </button>
+            </div> 
+        }
+          
     </>
   )
 }
