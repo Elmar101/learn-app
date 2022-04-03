@@ -11,7 +11,7 @@ const ChildrenOne = () => {
   return (
     <>
       <h1> CHILDREN ONE</h1>
-      <i>{user && JSON.stringify(user)}</i>
+      <i>{user?.name && JSON.stringify(user)}</i>
       <p>CHILDREN ONE {value.type} </p>
       <button onClick={() => changeTheme('dark')}> Change Theme </button>
     </>

@@ -15,7 +15,7 @@ interface IValues {
     setUser: React.Dispatch<React.SetStateAction<IUser>>
 }
  
-const UserContext: React.Context<IValues | null> = createContext<IValues | null>(null);
+const UserContext: React.Context<IValues | undefined> = createContext<IValues | undefined>(undefined);
 
 export const useUserContext = () => {
     const state = useContext(UserContext);

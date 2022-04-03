@@ -18,7 +18,7 @@ const Profile = () => {
     setTimeout(()=>{
         setUser({});
         setLoading(false);
-    },2000)
+    },1000)
   }
   return (
     <>
