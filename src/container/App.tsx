@@ -7,6 +7,8 @@ import AppPalatte from "../projects/realtime-colors/client/palatte/AppPalatte";
 import TestUseRef from "../test/testUseMemoUseCallbackUseRefReactMemo/testUseRef/TestUseRef";
 import UseMemoUseCallbackUseRefTest from "../test/testUseMemoUseCallbackUseRefReactMemo/UseMemoTestUseCallbackUseRef";
 import TestUseUpdateEffectHooks from "../test/useUpdateEffectHooks/TestUseUpdateEffectHooks";
+import { IntlProvider, FormattedMessage, FormattedNumber } from "react-intl";
+import { useState } from "react";
 //useUpdateEffect custom Hooks
 /* function App() {
   return (
@@ -15,7 +17,9 @@ import TestUseUpdateEffectHooks from "../test/useUpdateEffectHooks/TestUseUpdate
 } */
 
 //useMemo useCallbac useRef React.memo Lessons
-{/* <UseMemoUseCallbackUseRefTest/>  */}
+{
+  /* <UseMemoUseCallbackUseRefTest/>  */
+}
 /* function App() {
   return (
     <>
@@ -32,7 +36,7 @@ import TestUseUpdateEffectHooks from "../test/useUpdateEffectHooks/TestUseUpdate
   );
 } */
 
-//Context Lessons useContext createContext 
+//Context Lessons useContext createContext
 /* function App() {
   return (
     <>
@@ -40,7 +44,6 @@ import TestUseUpdateEffectHooks from "../test/useUpdateEffectHooks/TestUseUpdate
     </>
   );
 } */
-
 
 //Routing
 /* function App() {
@@ -58,11 +61,38 @@ import TestUseUpdateEffectHooks from "../test/useUpdateEffectHooks/TestUseUpdate
 } */
 
 // REAL TIME CHAT PROJECT
-function App() {
+/* function App() {
   return (
     <div>
       <AppChatContext/>
     </div>
+  );
+} */
+
+//LOCALIZATION
+const messages = {
+  "az-Az": {
+    title: "Salam Qaqa",
+    description: "3 Messajiniz var"
+  },
+  "en-En": {
+    title: "Hello Bro",
+    description: "There are three messages"
+  }
+};
+function App() {
+  const [language, setLanguage] = useState<"az-Az" | "en-En">("az-Az");
+  
+  return (
+    <IntlProvider messages={messages[language as "az-Az"]} locale="">
+      <FormattedMessage id="title"/>
+      <br/>
+      <FormattedMessage id="description"/>
+      <br/>
+      <button onClick={()=> setLanguage("az-Az")}>AZ</button> 
+      <span style={{paddingRight: "16px"}}></span>
+      <button onClick={()=> setLanguage("en-En")}>ENG</button>
+    </IntlProvider>
   );
 }
 export default App;

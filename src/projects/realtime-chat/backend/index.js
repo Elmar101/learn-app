@@ -8,11 +8,11 @@ const Messages = require("./lib/Messages");
 app.use(cors());
 
 app.get("/", (req, res) => {
-	res.end("Merhaba Socket.IO");
+	res.end("Hello Socket.IO");
 });
 
 io.on("connection", (socket) => {
-	console.log("a user connected");
+	console.log("user connected");
 
 	Messages.list((data) => {
 		console.log(data);
@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
 		socket.broadcast.emit("receive-message", message);
 	});
 
-	socket.on("disconnect", () => console.log("a user disconnected"));
+	socket.on("disconnect", () => console.log("user disconnected"));
 });
 
 http.listen(process.env.PORT || "3000", () => {
