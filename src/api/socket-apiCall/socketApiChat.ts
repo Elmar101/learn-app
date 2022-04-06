@@ -31,7 +31,7 @@ export const subScribeMessage = (callback: (message: string)=> void):void => {
 
 export const subScribeInitialMessage = (callback: (messages: {message: string; fromMe?: boolean | undefined; }[])=> void):void => {
     if(!socket){return;}
-    socket.on("message-list",(messages)=>{
+    socket.on("message-list",(messages: {message: string; fromMe?: boolean | undefined; }[])=>{
         console.log("message-list",messages);
         callback(messages);
     })

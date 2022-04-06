@@ -8,7 +8,9 @@ import TestUseRef from "../test/testUseMemoUseCallbackUseRefReactMemo/testUseRef
 import UseMemoUseCallbackUseRefTest from "../test/testUseMemoUseCallbackUseRefReactMemo/UseMemoTestUseCallbackUseRef";
 import TestUseUpdateEffectHooks from "../test/useUpdateEffectHooks/TestUseUpdateEffectHooks";
 import { IntlProvider, FormattedMessage, FormattedNumber } from "react-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Navbar from "../ecommerce-app/client/components/navbar/Navbar";
+import { ChakraProvider } from '@chakra-ui/react'
 //useUpdateEffect custom Hooks
 /* function App() {
   return (
@@ -70,29 +72,42 @@ import { useState } from "react";
 } */
 
 //LOCALIZATION
-const messages = {
-  "az-Az": {
+/* const messages = {
+  "az-AZ": {
     title: "Salam Qaqa",
-    description: "3 Messajiniz var"
+    description: "{count} Messajiniz var"
   },
-  "en-En": {
+  "en-US": {
     title: "Hello Bro",
-    description: "There are three messages"
+    description: "There are {count} messages"
   }
 };
 function App() {
-  const [language, setLanguage] = useState<"az-Az" | "en-En">("az-Az");
-  
+  const defaultLanguage = navigator.language;
+  const [language, setLanguage] = useState<string>(localStorage.getItem("lang") || defaultLanguage);
+  useEffect(()=>{
+    localStorage.setItem("lang",language)
+  },[language])
   return (
-    <IntlProvider messages={messages[language as "az-Az"]} locale="">
+    <IntlProvider messages={messages[language as "az-AZ" | "en-US"]} locale={language}>
       <FormattedMessage id="title"/>
       <br/>
-      <FormattedMessage id="description"/>
+      <FormattedMessage id="description" values={{count: 3}}/>
       <br/>
-      <button onClick={()=> setLanguage("az-Az")}>AZ</button> 
+      <button onClick={()=> setLanguage("az-AZ")}>AZ</button> 
       <span style={{paddingRight: "16px"}}></span>
-      <button onClick={()=> setLanguage("en-En")}>ENG</button>
+      <button onClick={()=> setLanguage("en-US")}>ENG</button>
     </IntlProvider>
+  );
+} */
+
+
+//ECOMMERCE-APP
+function App() {
+  return (
+    <ChakraProvider>
+     <MyRouters/>
+    </ChakraProvider>
   );
 }
 export default App;

@@ -4,13 +4,18 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Navbar from "../../ecommerce-app/client/components/navbar/Navbar";
 import PrivateLayout from "../../layout/PrivateLayout";
 import PublicLayout from "../../layout/PublicLayout";
 import HomeView from "../../pages/home-pages/HomeView";
 import PasswordResetPage from "../../pages/password-reset-page/PasswordResetPage";
 import SignInPage from "../../pages/signin-page/SignInPage";
 import SignUpPage from "../../pages/signup-page/SignUpPage";
-const MyRouters = () => {
+import styles from "./styles.module.scss";
+import Signin from "../../ecommerce-app/client/pages/auth/signin/Signin";
+import Signup from "../../ecommerce-app/client/pages/auth/signup/Signup";
+import Products from "../../ecommerce-app/client/pages/products/Products";
+/* const MyRouters = () => {
   return (
     <Router>
       <Routes>
@@ -27,6 +32,22 @@ const MyRouters = () => {
       </Routes>
     </Router>
   );
-};
+}; */
+
+const MyRouters = () => {
+  return (
+    <Router>
+      <Navbar />
+      <div className={styles.content}>
+        <Routes>
+          <Route path="/" element={<Products/>} />
+          <Route path="/signin" element={<Signin/>} />
+          <Route path="/signup" element={<Signup/>} />
+        </Routes>
+      </div>
+    </Router>
+    
+  )
+}
 
 export default MyRouters;
