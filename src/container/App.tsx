@@ -10,7 +10,7 @@ import TestUseUpdateEffectHooks from "../test/useUpdateEffectHooks/TestUseUpdate
 import { IntlProvider, FormattedMessage, FormattedNumber } from "react-intl";
 import { useEffect, useState } from "react";
 import Navbar from "../ecommerce-app/client/components/navbar/Navbar";
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from "@chakra-ui/react";
 //useUpdateEffect custom Hooks
 /* function App() {
   return (
@@ -101,12 +101,12 @@ function App() {
   );
 } */
 
-
 //ECOMMERCE-APP
+
 function App() {
   return (
     <ChakraProvider>
-     <MyRouters/>
+      <MyRouters />
     </ChakraProvider>
   );
 }

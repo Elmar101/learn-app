@@ -1,21 +1,26 @@
 import { Box , Image ,Button } from '@chakra-ui/react'
+import { Item } from 'framer-motion/types/components/Reorder/Item'
 import { XLink } from '../../../../x-lib/x-components/x-customLink/XLink'
-
-const Cart = () => {
+import { Product } from '../../models/product'
+import moment from "moment";
+interface Props {
+    product: Product
+}
+const Cart:React.FC<Props> = ({product}) => {
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="3">
         <XLink to="#/">
-            <Image src="https://picsum.photos/seed/picsum/400/200" alt="product"/>
+            <Image src={product.image} alt="product" style={{width: "200px" , height: "200px"}}/>
 
             <Box p="6">
                 <Box d="flex" alignItems="baseline">
-                    07/04/2022
+                    {moment(new Date().getTime()).format("DD/MM/YYYY")}
                 </Box>
                 <Box mt="1" fontWeight="semibold" as='h4' lineHeight="tight">
-                    Mackbook Pro
+                    {product.title.slice(0,15)}
                 </Box>
                 <Box>
-                    100 Azn
+                    {product.price} Azn
                 </Box>
             </Box>
         </XLink>

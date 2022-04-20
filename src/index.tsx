@@ -8,11 +8,30 @@ import "./index.scss";
 import "./reset.scss";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-ReactDOM.render(
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient({
+  defaultOptions:{
+    queries: {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false
+    }
+  }
+});
+/* ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
+); */
+ReactDOM.render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <App />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
