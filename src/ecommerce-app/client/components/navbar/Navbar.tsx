@@ -1,6 +1,7 @@
 import styles from "./styles.module.scss";
 import { Link } from "react-router-dom";
 import { Button } from '@chakra-ui/react';
+import { XLink } from "../../../../x-lib/x-components/x-customLink/XLink";
 function Navbar() {
     //const { loggedIn, user } = useAuth();
     //const { items } = useBasket();
@@ -9,12 +10,18 @@ function Navbar() {
         <nav className={styles.nav}>
             <div className={styles.left}>
                 <div className={styles.logo}>
-                    <Link to="/">eCommerce</Link>
+                    <XLink to="/">eCommerce</XLink>
                 </div>
 
                 <ul className={styles.menu}>
                     <li>
-                        <Link to="/">Products</Link>
+                        <XLink to="/">Products</XLink>
+                    </li>
+                </ul>
+
+				<ul className={styles.menu}>
+                    <li>
+                        <XLink to="/users">Users</XLink>
                     </li>
                 </ul>
             </div>

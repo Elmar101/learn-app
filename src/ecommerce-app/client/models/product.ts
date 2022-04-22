@@ -3,7 +3,7 @@ export interface Product {
     description: string;
     id: number;
     image: string;
-    price: 109.95;
+    price: number;
     rating: {rate: number, count: number}
     title: string;
 }

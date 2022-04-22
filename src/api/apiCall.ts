@@ -1,5 +1,4 @@
 import axios,{AxiosRequestConfig} from "axios";
-import { ROUTE_REGISTER } from "../config/Constants";
 
 export interface AxiosResponse<T = any, D = any>  {
     data: T;
@@ -16,4 +15,8 @@ export const registerApiCall = (api: string , data: {email: string, password: st
 
 export const loginApiCall = (api: string , data: {email: string, password: string}): Promise<AxiosResponse> => {
     return axios.post(api , data );
+}
+// Spring Raext Api
+export const signUp =  (body: {username: string , displayName: string, password: string}) => {
+    return axios.post("api/1.0/users", body );
 }

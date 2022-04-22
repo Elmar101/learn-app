@@ -15,6 +15,8 @@ import styles from "./styles.module.scss";
 import Signin from "../../ecommerce-app/client/pages/auth/signin/Signin";
 import Signup from "../../ecommerce-app/client/pages/auth/signup/Signup";
 import Products from "../../ecommerce-app/client/pages/products/Products";
+import ProductDetail from "../../ecommerce-app/client/pages/products/product-detail/ProductDetail";
+import UsersList from "../../ecommerce-app/client/pages/users/users-list/UsersList";
 /* const MyRouters = () => {
   return (
     <Router>
@@ -41,6 +43,8 @@ const MyRouters = () => {
       <div className={styles.content}>
         <Routes>
           <Route path="/" element={<Products/>} />
+          <Route path="product/:product_id" element={<ProductDetail/>} />
+          <Route path="/users" element={<UsersList/>} />
           <Route path="/signin" element={<Signin/>} />
           <Route path="/signup" element={<Signup/>} />
         </Routes>

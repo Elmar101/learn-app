@@ -8,9 +8,9 @@ import "./index.scss";
 import "./reset.scss";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import { ReactQueryDevtools } from 'react-query/devtools'
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from "react-query";
-const queryClient = new QueryClient({
+const queryClient: QueryClient = new QueryClient({
   defaultOptions:{
     queries: {
       refetchOnMount: false,

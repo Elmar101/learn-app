@@ -9,7 +9,7 @@ interface Props {
 const Cart:React.FC<Props> = ({product}) => {
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="3">
-        <XLink to="#/">
+        <XLink to={`product/${product.id}`}>
             <Image src={product.image} alt="product" style={{width: "200px" , height: "200px"}}/>
 
             <Box p="6">
