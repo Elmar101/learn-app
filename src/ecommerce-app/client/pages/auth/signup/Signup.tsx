@@ -1,19 +1,14 @@
 import { Alert, Box, Button, Flex, FormControl, FormLabel, Heading, Input } from '@chakra-ui/react'
-import { AxiosError } from 'axios';
 import { useFormik , FormikHelpers } from 'formik';
 import { signUp } from '../../../../../api/apiCall';
+import { useLogginSuccessContext } from '../../../contexts/AuthContext';
+import { UserValues } from '../../../models/user';
 import { SignUpSchema  } from "../validations-auth/authValidations";
 interface Props {}
-interface Values {
-  username: string;
-  displayName: string;
-  password: string;
-  passwordConfirm: string;
-}
 
 const Signup:React.FC<Props> = () => {
-
-  const formik = useFormik<Values>({
+  const loggin =  useLogginSuccessContext();
+  const formik = useFormik<UserValues>({
     initialValues: {
       username: '',
       displayName: '',
@@ -21,9 +16,12 @@ const Signup:React.FC<Props> = () => {
       passwordConfirm: '',
     },
     validationSchema: SignUpSchema,
-    onSubmit: async (values: Values , bag: FormikHelpers<Values>) => {
+    onSubmit: async (values: UserValues , bag: FormikHelpers<UserValues>) => {
      await signUp({username: values.username, displayName: values.displayName, password: values.password})
-           .then(response=> console.log(response))
+           .then(response=> {
+             loggin({user:{username: values.username, displayName: values.displayName, password: values.password, isLoggin: true}});
+              
+            })
            .catch(error => {
             bag.setErrors({
               username: error.response.data.validationErrors.username,

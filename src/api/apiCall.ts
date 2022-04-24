@@ -16,7 +16,30 @@ export const registerApiCall = (api: string , data: {email: string, password: st
 export const loginApiCall = (api: string , data: {email: string, password: string}): Promise<AxiosResponse> => {
     return axios.post(api , data );
 }
-// Spring Raext Api
-export const signUp =  (body: {username: string , displayName: string, password: string}) => {
-    return axios.post("api/1.0/users", body );
+// Spring React Api
+export const signUp =  async (body: {username: string , displayName: string, password: string}): Promise<AxiosResponse> => {
+    return await axios.post("api/1.0/users", body );
+}
+
+//Token Üçin
+export const loginAuth = async (creds: {username: string , password: string}): Promise<AxiosResponse> => {
+    return await axios.post("api/1.0/auth", creds);
+}
+
+axios.interceptors.request.use(
+    (config: AxiosRequestConfig)=> { 
+        const token = localStorage.getItem('access-token');
+        if(token){
+           // axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
+        }
+        return config; 
+    },
+    error => {
+        return Promise.reject(error);
+    } 
+);
+
+export const logout = (): Promise<AxiosResponse> => {
+    return axios.post('/api/1.0/logout');
 }

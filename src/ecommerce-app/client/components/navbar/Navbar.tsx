@@ -2,10 +2,13 @@ import styles from "./styles.module.scss";
 import { Link } from "react-router-dom";
 import { Button } from '@chakra-ui/react';
 import { XLink } from "../../../../x-lib/x-components/x-customLink/XLink";
+import { useUserStateContext } from "../../contexts/AuthContext";
 function Navbar() {
     //const { loggedIn, user } = useAuth();
     //const { items } = useBasket();
-
+	const user = useUserStateContext();
+	console.log("USER: ", user);
+	
     return (
         <nav className={styles.nav}>
             <div className={styles.left}>
@@ -27,12 +30,25 @@ function Navbar() {
             </div>
 
             <div className={styles.right}>
-                <Link to="/signin">
-                    <Button colorScheme="pink">Login</Button>
-                </Link>
-                <Link to="/signup">
-                    <Button colorScheme="pink">Register</Button>
-                </Link>
+			{!user.isLoggin && 
+				<>
+					<Link to="/signin">
+						<Button colorScheme="pink">Login</Button>
+					</Link>
+					<Link to="/signup">
+						<Button colorScheme="pink">Register</Button>
+					</Link>
+				</>
+			}
+
+			{user.isLoggin && 
+				<>
+					<Link to="/profile">
+						<Button colorScheme="pink">Profile</Button>
+					</Link>
+					
+				</>
+			}
                 {/* {!loggedIn && (
 					<>
 						<Link to="/signin">

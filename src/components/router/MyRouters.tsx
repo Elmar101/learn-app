@@ -17,6 +17,9 @@ import Signup from "../../ecommerce-app/client/pages/auth/signup/Signup";
 import Products from "../../ecommerce-app/client/pages/products/Products";
 import ProductDetail from "../../ecommerce-app/client/pages/products/product-detail/ProductDetail";
 import UsersList from "../../ecommerce-app/client/pages/users/users-list/UsersList";
+import UserProfile from "../../ecommerce-app/client/pages/users/user-profile/UserProfile";
+import { ProtectedRoute } from "./ProtectedRouter";
+import { useUserStateContext } from "../../ecommerce-app/client/contexts/AuthContext";
 /* const MyRouters = () => {
   return (
     <Router>
@@ -37,6 +40,7 @@ import UsersList from "../../ecommerce-app/client/pages/users/users-list/UsersLi
 }; */
 
 const MyRouters = () => {
+  const user = useUserStateContext();
   return (
     <Router>
       <Navbar />
@@ -45,6 +49,11 @@ const MyRouters = () => {
           <Route path="/" element={<Products/>} />
           <Route path="product/:product_id" element={<ProductDetail/>} />
           <Route path="/users" element={<UsersList/>} />
+          <Route path="/profile" element={
+            <ProtectedRoute isAllowed = {user.isLoggin} redirectPath="/">
+              <UserProfile/>
+            </ProtectedRoute>
+          } />
           <Route path="/signin" element={<Signin/>} />
           <Route path="/signup" element={<Signup/>} />
         </Routes>

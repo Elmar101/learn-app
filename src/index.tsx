@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from "react-query";
+import { AuthUserContextProvider } from "./ecommerce-app/client/contexts/AuthContext";
 const queryClient: QueryClient = new QueryClient({
   defaultOptions:{
     queries: {
@@ -29,7 +30,9 @@ const queryClient: QueryClient = new QueryClient({
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <AuthUserContextProvider>
+        <App />
+      </AuthUserContextProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>,
