@@ -41,7 +41,7 @@ const ProductDetail: React.FC<Props> = () => {
     <>
         <Button colorScheme={ findItemFromBasket ? "pink" : "green"} onClick={()=> {data && addToBasket(data, findItemFromBasket)}}> 
           {
-            findItemFromBasket ? 'Remove item from Basket' : 'Add item to Basket'
+            findItemFromBasket ? 'Remove from Basket' : 'Add to Basket'
           }
         </Button>
         <Text as="h2" fontSize="2xl"> {data?.title} </Text>

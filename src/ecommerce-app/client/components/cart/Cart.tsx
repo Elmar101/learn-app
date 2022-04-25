@@ -1,12 +1,14 @@
 import { Box , Image ,Button } from '@chakra-ui/react'
-import { Item } from 'framer-motion/types/components/Reorder/Item'
 import { XLink } from '../../../../x-lib/x-components/x-customLink/XLink'
 import { Product } from '../../models/product'
 import moment from "moment";
+import { useBasketContext } from '../../contexts/BasketContext';
 interface Props {
     product: Product
 }
 const Cart:React.FC<Props> = ({product}) => {
+  const [ state, ,addToBasket] = useBasketContext();
+  const findItem = state.find((basket_item)=> basket_item.id === product.id);
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="3">
         <XLink to={`product/${product.id}`}>
@@ -24,7 +26,9 @@ const Cart:React.FC<Props> = ({product}) => {
                 </Box>
             </Box>
         </XLink>
-        <Button colorScheme="pink"> Add to basket </Button>
+        <Button colorScheme={ findItem ? "pink" : "green"} onClick = {()=>  addToBasket(product , findItem) }> 
+            {findItem ? "Remove Basket" : "Add to basket"} 
+        </Button>
     </Box>
   )
 }
