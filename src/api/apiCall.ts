@@ -9,23 +9,6 @@ export interface AxiosResponse<T = any, D = any>  {
     request?: any;
 }
 
-export const registerApiCall = (api: string , data: {email: string, password: string}): Promise<AxiosResponse> => {
-    return axios.post(api , data );
-}
-
-export const loginApiCall = (api: string , data: {email: string, password: string}): Promise<AxiosResponse> => {
-    return axios.post(api , data );
-}
-// Spring React Api
-export const signUp =  async (body: {username: string , displayName: string, password: string}): Promise<AxiosResponse> => {
-    return await axios.post("api/1.0/users", body );
-}
-
-//Token Üçin
-export const loginAuth = async (creds: {username: string , password: string}): Promise<AxiosResponse> => {
-    return await axios.post("api/1.0/auth", creds);
-}
-
 axios.interceptors.request.use(
     (config: AxiosRequestConfig)=> { 
         const token = localStorage.getItem('access-token');
@@ -39,7 +22,23 @@ axios.interceptors.request.use(
         return Promise.reject(error);
     } 
 );
+export const registerApiCall = (api: string , data: {email: string, password: string}): Promise<AxiosResponse> => {
+    return axios.post(api , data );
+}
 
+export const loginApiCall = (api: string , data: {email: string, password: string}): Promise<AxiosResponse> => {
+    return axios.post(api , data );
+}
+// Spring React Api
+export const signUp =  async (body: {username: string , displayName: string, password: string}): Promise<AxiosResponse> => {
+    return await axios.post("api/1.0/users", body );
+}
+//Token Üçin hermde loginde
+export const loginAuth = async (creds: {username: string , password: string}): Promise<AxiosResponse> => {
+    return await axios.post("api/1.0/auth", creds);
+}
+
+//logout tokeni nullamaq
 export const logout = (): Promise<AxiosResponse> => {
     return axios.post('/api/1.0/logout');
 }

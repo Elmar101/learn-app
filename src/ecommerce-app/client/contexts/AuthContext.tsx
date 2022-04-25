@@ -44,7 +44,7 @@ export const AuthUserContextProvider: React.FC<{children?: React.ReactNode;}> = 
 
         if(data.token) localStorage.setItem('access-token', data.token);
 
-        loginAuth({username: data.user.username , password: data.user.password})
+        loginAuth({username: data.user.username , password: data.user.password as string})
              .then( (response: AxiosResponse<{token: string , user: AuthUser}, any>) => {
               localStorage.setItem('access-token',response.data.token);
               setLoading(false)

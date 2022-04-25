@@ -6,16 +6,19 @@ import { useParams } from 'react-router'
 import { fetchProduct } from '../../../../../api/fakeStoreApi';
 import { Product } from '../../../models/product';
 import ImageGallery from 'react-image-gallery';
+import { useBasketContext } from '../../../contexts/BasketContext';
 interface Props {
 
 }
 const ProductDetail: React.FC<Props> = () => {
   const {product_id} = useParams();
+  const [ state, ,addToBasket] = useBasketContext();
+ 
   const {isLoading , isError , error , data}: UseQueryResult<Product , Error> =  
         useQuery<Product , Error>(["product", product_id], () => fetchProduct(product_id || "") );
-        
-  if (isLoading) return <div>'Loading...'</div>;
+  const findItemFromBasket = state.find(item => item.id === data?.id);
 
+  if (isLoading) return <div>'Loading...'</div>;
   if (isError) return <div> {"An error has occurred: " + error}</div>;
   console.log("DATA IS : ", data);
   const images = [
@@ -36,7 +39,11 @@ const ProductDetail: React.FC<Props> = () => {
   //[{original: data?.image || ""}];
   return (
     <>
-        <Button colorScheme="pink"> Add to basket </Button>
+        <Button colorScheme={ findItemFromBasket ? "pink" : "green"} onClick={()=> {data && addToBasket(data, findItemFromBasket)}}> 
+          {
+            findItemFromBasket ? 'Remove item from Basket' : 'Add item to Basket'
+          }
+        </Button>
         <Text as="h2" fontSize="2xl"> {data?.title} </Text>
         <Text> {moment(new Date().getTime()).format("DD/MM/YYYY")} </Text>
         <p style={{textAlign: "justify"}}>{data?.description}</p>

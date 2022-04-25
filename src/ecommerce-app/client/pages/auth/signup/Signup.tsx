@@ -1,5 +1,6 @@
 import { Alert, Box, Button, Flex, FormControl, FormLabel, Heading, Input } from '@chakra-ui/react'
 import { useFormik , FormikHelpers } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../../../../api/apiCall';
 import { useLogginSuccessContext } from '../../../contexts/AuthContext';
 import { UserValues } from '../../../models/user';
@@ -8,6 +9,7 @@ interface Props {}
 
 const Signup:React.FC<Props> = () => {
   const loggin =  useLogginSuccessContext();
+  const navigate = useNavigate();
   const formik = useFormik<UserValues>({
     initialValues: {
       username: '',
@@ -17,10 +19,10 @@ const Signup:React.FC<Props> = () => {
     },
     validationSchema: SignUpSchema,
     onSubmit: async (values: UserValues , bag: FormikHelpers<UserValues>) => {
-     await signUp({username: values.username, displayName: values.displayName, password: values.password})
+     await signUp({username: values.username, displayName: values.displayName, password: values.password as string})
            .then(response=> {
              loggin({user:{username: values.username, displayName: values.displayName, password: values.password, isLoggin: true}});
-              
+             navigate("/profile");
             })
            .catch(error => {
             bag.setErrors({

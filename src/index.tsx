@@ -11,6 +11,7 @@ import { store } from "./redux/store";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthUserContextProvider } from "./ecommerce-app/client/contexts/AuthContext";
+import BasketContextProvider from "./ecommerce-app/client/contexts/BasketContext";
 const queryClient: QueryClient = new QueryClient({
   defaultOptions:{
     queries: {
@@ -31,7 +32,9 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthUserContextProvider>
-        <App />
+        <BasketContextProvider>
+          <App />
+        </BasketContextProvider>
       </AuthUserContextProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

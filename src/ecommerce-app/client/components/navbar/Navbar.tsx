@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from '@chakra-ui/react';
 import { XLink } from "../../../../x-lib/x-components/x-customLink/XLink";
 import { useUserStateContext } from "../../contexts/AuthContext";
+import { useBasketContext } from "../../contexts/BasketContext";
 function Navbar() {
     //const { loggedIn, user } = useAuth();
     //const { items } = useBasket();
 	const user = useUserStateContext();
+	const [state] = useBasketContext();
+
 	console.log("USER: ", user);
 	
     return (
@@ -43,6 +46,13 @@ function Navbar() {
 
 			{user.isLoggin && 
 				<>
+				    {state.length > 0 && (
+							<Link to="/basket">
+								<Button colorScheme="pink" variant="outline">
+									Basket ({state.length})
+								</Button>
+							</Link>
+						)}
 					<Link to="/profile">
 						<Button colorScheme="pink">Profile</Button>
 					</Link>
