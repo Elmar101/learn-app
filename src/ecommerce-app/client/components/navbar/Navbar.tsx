@@ -52,7 +52,15 @@ function Navbar() {
 									Basket ({state.length})
 								</Button>
 							</Link>
-						)}
+						)
+					}
+					{
+						user.username ==="user1" && <XLink to="/admin">
+							<Button colorScheme="pink" variant="ghost">
+								Admin
+							</Button>
+						</XLink>
+					}
 					<Link to="/profile">
 						<Button colorScheme="pink">Profile</Button>
 					</Link>

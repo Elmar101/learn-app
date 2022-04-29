@@ -21,7 +21,7 @@ const Signin:React.FC<Props> = () => {
      await loginAuth({username: values.username, password: values.password})
            .then(response=> {
              console.log("LoginAuth: ", response)
-             loggin({user:{username: response.data.username , displayName: response.data.displayName} , token: response.data.token})
+             loggin({user:{username: response.data.user.username , displayName: response.data.user.displayName} , token: response.data.token})
              navigate("/profile");
             })
            .catch((error: {response: {data:{message: string}}}) => {

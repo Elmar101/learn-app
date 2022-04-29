@@ -22,6 +22,7 @@ import { ProtectedRoute } from "./ProtectedRouter";
 import { useUserStateContext } from "../../ecommerce-app/client/contexts/AuthContext";
 import { Basket } from "../../ecommerce-app/client/pages/products/basket-cart/Basket";
 import NotFound from "../../ecommerce-app/client/pages/not-found/NotFound";
+import Admin from "../../ecommerce-app/client/pages/admin-page/Admin";
 /* const MyRouters = () => {
   return (
     <Router>
@@ -50,15 +51,23 @@ const MyRouters = () => {
         <Routes>
           <Route path="/" element={<Products/>} />
           <Route path="product/:product_id" element={<ProductDetail/>} />
+          <Route path="/signin" element={<Signin/>} />
+          <Route path="/signup" element={<Signup/>} />
           <Route path="/basket" element={<Basket/>} />
           <Route path="/users" element={<UsersList/>} />
+
           <Route path="/profile" element={
             <ProtectedRoute isAllowed = {user.isLoggin} redirectPath="/">
               <UserProfile/>
             </ProtectedRoute>
           } />
-          <Route path="/signin" element={<Signin/>} />
-          <Route path="/signup" element={<Signup/>} />
+          
+          <Route path="/admin/*" element={
+            <ProtectedRoute isAllowed = {user.isLoggin} redirectPath="/" admin={true}>
+              <Admin/>
+            </ProtectedRoute>
+          }/>
+         
           <Route path="*" element={<NotFound/>} />
         </Routes>
       </div>

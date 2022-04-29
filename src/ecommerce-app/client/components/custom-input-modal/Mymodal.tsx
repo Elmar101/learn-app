@@ -2,6 +2,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,6 +14,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useUserStateContext } from "../../contexts/AuthContext";
 import { useBasketContext } from "../../contexts/BasketContext";
 
 export default function Mymodal(){
@@ -20,11 +22,12 @@ export default function Mymodal(){
   const dataId = state.map(item => item.id)
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [adress, setAdress] = useState<string>('');
+  const user = useUserStateContext();
   const onSubmitHandler = () => {
-    if(localStorage.getItem('order') === null){ localStorage.setItem('order','[]') };
-    const oldData = JSON.parse(localStorage.getItem('order') as string);
-    const data = [...oldData ,{adress, createDate: new Date().toISOString() ,state}];
-    localStorage.setItem(`order`, JSON.stringify(data));
+    if(localStorage.getItem('orders') === null){ localStorage.setItem('orders','[]') };
+    const oldData = JSON.parse(localStorage.getItem('orders') as string);
+    const newdata = [...oldData ,{user:user.username , adress, quantity: state.length ,createDate: new Date().toISOString() ,product: state}];
+    localStorage.setItem(`orders`, JSON.stringify(newdata));
     
     setAdress('');
     clearBasket(dataId);

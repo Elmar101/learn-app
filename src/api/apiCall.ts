@@ -1,3 +1,4 @@
+import { Orders } from './../ecommerce-app/client/models/orders';
 import axios,{AxiosRequestConfig} from "axios";
 
 export interface AxiosResponse<T = any, D = any>  {
@@ -13,7 +14,6 @@ axios.interceptors.request.use(
     (config: AxiosRequestConfig)=> { 
         const token = localStorage.getItem('access-token');
         if(token){
-           // axios.defaults.headers['Authorization'] = `Bearer ${token}`;
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
         }
         return config; 
@@ -41,4 +41,12 @@ export const loginAuth = async (creds: {username: string , password: string}): P
 //logout tokeni nullamaq
 export const logout = (): Promise<AxiosResponse> => {
     return axios.post('/api/1.0/logout');
+}
+
+//LocalStorage ile Api yaratmaq
+export const fetchOrders = (): Promise<Orders[]> => {
+    const orders: Orders[] = JSON.parse(localStorage.getItem("orders") as string) as Orders[];
+    return new Promise((resolve , reject)=>{
+        resolve(orders);
+    })
 }

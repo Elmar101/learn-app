@@ -7,9 +7,3 @@ export interface UserValues {
 
 export type AuthUser = Omit<UserValues, "passwordConfirm"> & { isLoggin?: boolean };
 
-/* const x: User = {
-    isLoggin: true,
-    username: "",
-    displayName: "",
-    password: ""
-} */

@@ -32,21 +32,23 @@ export const AuthUserContextProvider: React.FC<{children?: React.ReactNode;}> = 
 
     const  onLoginSuccess = (data:{user: AuthUser , token?: string}) => {
         setLoading(true)
-        console.log("onlogginsucces: ", data);
-        
         setUser({
             ...user,
-            username: data.user.username,
+            username: data.user.username ,
             displayName: data.user.displayName,
             password: data.user.password,
             isLoggin: true
         })
 
-        if(data.token) localStorage.setItem('access-token', data.token);
+        if(data.token) {
+            localStorage.setItem('access-token', data.token);
+            localStorage.setItem("admin",user.username);
+        }
 
         loginAuth({username: data.user.username , password: data.user.password as string})
              .then( (response: AxiosResponse<{token: string , user: AuthUser}, any>) => {
               localStorage.setItem('access-token',response.data.token);
+              localStorage.setItem("admin", response.data.user.username);
               setLoading(false)
           }).catch(error=> {
             setLoading(false)
@@ -123,35 +125,3 @@ export const useLogoutSuccessContext = () => {
     return logoutSuccessFn;
 } 
 
-
-
-
-
-
-
-
-/* const AuthLogginContext = createContext<(user: AuthUser) => void >(()=>{}); */
-/* 
-    const  onLoginSuccess = (user: AuthUser) => {
-       setUser({
-           ...user,
-           username: user.username,
-           displayName: user.displayName,
-           password: user.password,
-           isLoggin: true
-       })
-    } 
-*/
-
-/*   <AuthLogginContext.Provider value={onLoginSuccess}>
-        {children}
-    </AuthLogginContext.Provider> */
-/* 
-    export const useLogginSuccessContext = () => {
-        const logginSuccessFn = useContext(AuthLogginContext);
-        if(!logginSuccessFn){
-            throw new Error("AuthLogginContext was called outside of the AuthSetStateContext provider");
-        }
-        return logginSuccessFn;
-    } 
-*/
